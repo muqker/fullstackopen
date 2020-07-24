@@ -1,0 +1,12 @@
+actor user
+user->>browser: write "exercise" in the form field\n and push the Save button
+
+note over browser:
+classic form submission is suppressed 
+and handled instead by the js code
+end note 
+
+browser-->>user: render the new note at the end of the list
+
+browser->server: HTTP POST https://fullstack-exampleapp.herokuapp.com/new_note_spa\nBODY {"content":"exercise","date":"2020-07-24T09:36:57.916Z"}
+server-->browser: JSON-code: {"message":"note created"}

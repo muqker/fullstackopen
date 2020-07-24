@@ -1,9 +1,12 @@
-browser->server: HTTP POST https://fullstack-exampleapp.herokuapp.com/new_note BODY note=test
+actor user
+user->>browser: enters "test" in the form field\nand pushes the Save button
+browser->server: HTTP POST https://fullstack-exampleapp.herokuapp.com/new_note\nBODY note=test
 server-->browser: 302 - Location: /notes
 browser->server: HTTP GET https://fullstack-exampleapp.herokuapp.com/notes
 server-->browser: HTML-code
 browser->server: HTTP GET https://fullstack-exampleapp.herokuapp.com/main.css
 server-->browser: main.css
+browser-->>user: render the html and css\nas data arives
 browser->server: HTTP GET https://fullstack-exampleapp.herokuapp.com/main.js
 server-->browser: main.js
 
@@ -19,3 +22,5 @@ note over browser:
 browser executes the event handler
 that renders notes to display
 end note
+
+browser-->>user: render the notes into the page
