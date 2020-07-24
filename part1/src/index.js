@@ -1,28 +1,40 @@
-import React from 'react'
+import React, { useState } from 'react'
 import ReactDOM from 'react-dom'
 
+const Display = ({counter}) => 
+  <div>{counter}</div>
+const Button = ({handleClick, text}) => 
+  <button onClick={handleClick}> {text} </button>
 
-const Hello = (props) => {
-  return (
-    <div>
-      <p>Hello {props.name} of {props.age} months</p>
-    </div>
-  )
-}
 
 const App = () => {
-  const now = new Date()
-  const a = 10
-  const b = 20
+  const [ counter, setCounter ] = useState(0)
+
+  const increaseByOne = () => setCounter(counter + 1)
+  const decreaseByOne = () => setCounter(counter - 1)
+  const setToZero = () => setCounter(0)
+  console.log('render app')
 
   return (
     <div>
-      <p>Hello world, it is {now.toString()}</p>
-      <p>
-        {a} plus {b} is {a + b}
-        <Hello name="Alfie" age={b-a} />
-      </p>
+      <Display counter={counter}/>
+      <Button
+        handleClick={increaseByOne}
+        text='plus'
+      />
+      <Button
+        handleClick={setToZero}
+        text='zero'
+      />     
+      <Button
+        handleClick={decreaseByOne}
+        text='minus'
+      />           
     </div>
   )
 }
-ReactDOM.render(<App />, document.getElementById('root'))
+
+ReactDOM.render(
+  <App />, 
+  document.getElementById('root')
+)
