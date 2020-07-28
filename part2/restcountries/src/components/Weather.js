@@ -1,6 +1,8 @@
 import React from 'react';
 
 const Weather = ({weather}) => {
+  console.log('reder Weather')
+
   if (weather === null) {
     return []
   }

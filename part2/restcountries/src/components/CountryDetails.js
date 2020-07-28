@@ -1,6 +1,8 @@
 import React from 'react';
 
 const CountryDetails = ({countryDetails}) => {
+  console.log('reder CountryDetails')
+
   if (countryDetails === null) {
     return []
   }

@@ -11,22 +11,32 @@ const App = () => {
   const [countryDetails, setCountryDetails] = useState(null)
   const [weather, setWeather] = useState(null)
   const api_key = process.env.REACT_APP_API_KEY
-  //console.log(process.env.api_key)
+  
+  console.log('reder App')
+
+  const handleFilterChange = (newValue) => {
+    setFilter(newValue)
+    handleCountryDetailsChange(null)
+  }
+
+  const handleCountryDetailsChange = (newValue) => {
+    setCountryDetails(newValue)
+    setWeather(null)
+  }
 
   useEffect(() => { 
     if (filter.length > 0) {
       axios.get(`https://restcountries.eu/rest/v2/name/${filter}`)
-      .then(response => setCountries(response.data))
+      .then(response => {
+        setCountries(response.data)
+        setCountryDetails(response.data.length === 1 ? response.data[0] : null)
+      })
       .catch(() => setCountries([]))
+      .then()
     } else {
       setCountries([])
     }
   },[filter])
-
-  useEffect(() => { 
-    setCountryDetails(countries.length === 1 ? countries[0] : null)
-    setWeather(null)
-  }, [countries])
 
   useEffect(() => {
     if (countryDetails === null)
@@ -43,11 +53,12 @@ const App = () => {
       .catch(() => setWeather(null))
   }, [countryDetails, api_key])
 
+
   return (
     <div>
       <h1> Countries </h1>
-      <Filter filter={filter} setFilter={setFilter} />
-      <ListCountries countries={countries} setCountryDetails={setCountryDetails}/>
+      <Filter filter={filter} setFilter={handleFilterChange} />
+      <ListCountries countries={countries} setCountryDetails={handleCountryDetailsChange}/>
       <CountryDetails countryDetails={countryDetails} />
       <Weather weather={weather} />
     </div>
