@@ -11,7 +11,7 @@ const Weather = ({weather}) => {
   return (
     <div>
       <h2>Weather in {weather.location.name}</h2>
-      <b>temperature:</b> {weather.current.temperature} celius<br />
+      <b>temperature:</b> {weather.current.temperature} celsius<br />
       <img width="50" 
         alt={weather.current.weather_description} 
         src={weather.current.weather_icons[0]} 

@@ -20,19 +20,22 @@ const App = () => {
   }
 
   const handleCountryDetailsChange = (newValue) => {
-    setCountryDetails(newValue)
-    setWeather(null)
+    if (newValue !== countryDetails) {
+      setCountryDetails(newValue)
+      setWeather(null)
+  
+    }
   }
 
   useEffect(() => { 
     if (filter.length > 0) {
       axios.get(`https://restcountries.eu/rest/v2/name/${filter}`)
       .then(response => {
-        setCountries(response.data)
-        setCountryDetails(response.data.length === 1 ? response.data[0] : null)
+        const newCountries = response.data
+        setCountries(newCountries)
+        setCountryDetails(newCountries.length === 1 ? newCountries[0] : null)
       })
       .catch(() => setCountries([]))
-      .then()
     } else {
       setCountries([])
     }
