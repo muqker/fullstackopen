@@ -3,7 +3,7 @@ import React from 'react'
 const PersonForm = ({
     newName, newNumber, 
     setNewName, setNewNumber,
-    persons, setPersons
+    persons, handleUpdatePerson, handleAddPerson
   }) => {
 
   const handleNameChange = (event) => {
@@ -16,12 +16,13 @@ const PersonForm = ({
 
   const addName = (event) => {
     event.preventDefault()
-    if (persons.filter(person => newName === person.name).length !== 0) {
-      alert(`${newName} is already added to the phonebook`)
+    const existingPerson = persons.find(person => newName === person.name)
+    console.log(existingPerson)
+    if (existingPerson !== undefined) {
+      if (window.confirm(`${newName} is already added to the phonebook, replace the old number with a new one?`))
+        handleUpdatePerson({id: existingPerson.id, name: newName, number: newNumber})
     } else {
-      setPersons(persons.concat({name: newName, number: newNumber}))
-      setNewName('')
-      setNewNumber('')
+      handleAddPerson({name: newName, number: newNumber})
     }
   }
 

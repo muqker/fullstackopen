@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import Filter from './components/Filter';
 import PersonForm from './components/PersonForm';
 import Persons from './components/Persons';
-import axios from 'axios'
+import contactService from './services/contacts.js';
 
 
 
@@ -12,15 +12,40 @@ const App = () => {
   const [ newNumber, setNewNumber ] = useState('')
   const [ filter, setFilter ] = useState('')
 
-  useEffect(()=> {
-    console.log('effect')
-    axios
-      .get('http://localhost:3001/persons')
-      .then(response => {
-        console.log('promis fullfilled', response.data)
-        setPersons(response.data)
-      })
+  useEffect(() => {
+    contactService.getAll().then(newPersons => setPersons(newPersons))
   }, [])
+
+  const handleDelete = id => {
+    const person = persons.find(person => person.id === id)
+    if (window.confirm(`Delete ${person.name}?`)) {
+      contactService.remove(id).then(() => 
+        setPersons(persons.filter(person => person.id !== id))
+      )
+    }
+  }
+
+  const handleUpdatePerson = newPerson => {
+      contactService.update(newPerson)
+      .then(updatedPerson => setPersons(
+        persons.map(person => person.id === updatedPerson.id ? updatedPerson : person)
+      ))
+      .catch(() => alert('Update failed'))
+      .finally(() => {
+        setNewNumber('')
+      })
+  }
+
+  const handleAddPerson = newPerson => {
+    contactService.add(newPerson)
+    .then(addedPerson => setPersons(
+      persons.concat(addedPerson)
+    ))
+    .catch(() => alert('Add failed'))
+    .finally(() => {
+      setNewNumber('')
+    })    
+  }
 
   return (
     <div>
@@ -30,9 +55,10 @@ const App = () => {
       <PersonForm 
         newName={newName} setNewName={setNewName}
         newNumber={newNumber} setNewNumber={setNewNumber}
-        persons={persons} setPersons={setPersons} />
+        persons={persons} 
+        handleUpdatePerson={handleUpdatePerson} handleAddPerson={handleAddPerson} />
       <h2>Numbers</h2>
-      <Persons persons={persons} filter={filter} />
+      <Persons persons={persons} filter={filter} handleDelete={handleDelete} />
     </div>
   )
 }
