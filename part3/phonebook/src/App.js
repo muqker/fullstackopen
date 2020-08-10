@@ -49,6 +49,7 @@ const App = () => {
         setPersons(persons.filter(person => person.id !== newPerson.id))
       })
       .finally(() => {
+        setNewName('')
         setNewNumber('')
       })
   }
