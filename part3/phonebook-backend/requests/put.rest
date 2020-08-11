@@ -1,0 +1,25 @@
+PUT http://localhost:3001/api/persons/5f30467e23109be4262aaf6c
+Content-Type: application/json
+
+{
+  "name": "Popins, Marry"
+}
+###
+PUT http://localhost:3001/api/persons/5f30467e23109be4262aaf6c
+Content-Type: application/json
+
+{
+  "number": "+110-900-800"
+}
+###
+PUT http://localhost:3001/api/persons/5f30467e23109be4262aaf6c
+Content-Type: application/json
+
+{
+  "number": "00-110-900-800",
+  "name": "Marry Popins"
+}
+###
+PUT http://localhost:3001/api/persons/00
+###
+PUT http://localhost:3001/api/persons/123456789012345678901234

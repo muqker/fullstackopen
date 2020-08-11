@@ -1,0 +1,21 @@
+POST http://localhost:3001/api/persons/
+Content-Type: application/json
+
+{
+  "name": "Marry Popins",
+  "number": "0110-900-800"
+}
+###
+POST http://localhost:3001/api/persons/
+Content-Type: application/json
+
+{
+  "name": "Marry Popins"
+}
+###
+POST http://localhost:3001/api/persons/
+Content-Type: application/json
+
+{
+  "number": "0110-900-800"
+}
