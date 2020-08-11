@@ -1,7 +1,7 @@
 import React from 'react'
 
 const PersonForm = ({
-  newName, newNumber, 
+  newName, newNumber,
   setNewName, setNewNumber,
   persons, handleUpdatePerson, handleAddPerson
 }) => {
@@ -19,9 +19,9 @@ const PersonForm = ({
     console.log(existingPerson)
     if (existingPerson !== undefined) {
       if (window.confirm(`${newName} is already added to the phonebook, replace the old number with a new one?`))
-        handleUpdatePerson({id: existingPerson.id, name: newName, number: newNumber})
+        handleUpdatePerson({ id: existingPerson.id, name: newName, number: newNumber })
     } else {
-      handleAddPerson({name: newName, number: newNumber})
+      handleAddPerson({ name: newName, number: newNumber })
     }
   }
 

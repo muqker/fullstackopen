@@ -7,16 +7,14 @@ const getAll = () => {
   return result
 }
 
-const remove = id => {
-  return axios.delete(`${baseUrl}/${id}`)
-}
+const remove = id =>
+  axios.delete(`${baseUrl}/${id}`)
 
-const update = person => {
-  return axios.put(`${baseUrl}/${person.id}`, person).then(response => response.data)
-}
 
-const add = person => {
-  return axios.post(`${baseUrl}`, person).then(response => response.data)
-}
+const update = person =>
+  axios.put(`${baseUrl}/${person.id}`, person).then(response => response.data)
 
-export default {getAll, remove, update, add}
+const add = person =>
+  axios.post(`${baseUrl}`, person).then(response => response.data)
+
+export default { getAll, remove, update, add }

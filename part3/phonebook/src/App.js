@@ -9,7 +9,7 @@ import './index.css'
 
 
 const App = () => {
-  const [ persons, setPersons ] = useState([]) 
+  const [ persons, setPersons ] = useState([])
   const [ newName, setNewName ] = useState('')
   const [ newNumber, setNewNumber ] = useState('')
   const [ filter, setFilter ] = useState('')
@@ -25,9 +25,9 @@ const App = () => {
       contactService.remove(id).then(() => {
         setPersons(persons.filter(person => person.id !== id))
         fireNotification({
-          type: 'success', 
+          type: 'success',
           message: `Deleted ${deletedPerson.name}`
-        })        
+        })
       })
     }
   }
@@ -37,7 +37,7 @@ const App = () => {
       .then(updatedPerson => {
         setPersons(persons.map(person => person.id === updatedPerson.id ? updatedPerson : person))
         fireNotification({
-          type: 'success', 
+          type: 'success',
           message: `Updated ${newPerson.name}`
         })
         setNewName('')
@@ -45,7 +45,7 @@ const App = () => {
       })
       .catch(error => {console.log(error.response.data)
         fireNotification({
-          type: 'error', 
+          type: 'error',
           message: error.response.data.error
         })}
       )
@@ -56,7 +56,7 @@ const App = () => {
       .then(addedPerson => {
         setPersons(persons.concat(addedPerson))
         fireNotification({
-          type: 'success', 
+          type: 'success',
           message: `Added ${addedPerson.name}`
         })
         setNewName('')
@@ -64,7 +64,7 @@ const App = () => {
       })
       .catch(error => {console.log(error.response.data)
         fireNotification({
-          type: 'error', 
+          type: 'error',
           message: error.response.data.error
         })}
       )
@@ -83,10 +83,10 @@ const App = () => {
       <Notification notification={notification} />
       <Filter filter={filter} setFilter={setFilter} />
       <h2>add a new</h2>
-      <PersonForm 
+      <PersonForm
         newName={newName} setNewName={setNewName}
         newNumber={newNumber} setNewNumber={setNewNumber}
-        persons={persons} 
+        persons={persons}
         handleUpdatePerson={handleUpdatePerson} handleAddPerson={handleAddPerson} />
       <h2>Numbers</h2>
       <Persons persons={persons} filter={filter} handleDelete={handleDelete} />
