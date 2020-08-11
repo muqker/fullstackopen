@@ -35,15 +35,24 @@ const App = () => {
   const handleUpdatePerson = newPerson => {
     contactService.update(newPerson)
       .then(updatedPerson => {
-        setPersons(persons.map(person => person.id === updatedPerson.id ? updatedPerson : person))
-        fireNotification({
-          type: 'success',
-          message: `Updated ${newPerson.name}`
-        })
-        setNewName('')
-        setNewNumber('')
+        if (! updatedPerson) {
+          fireNotification({
+            type: 'error',
+            message: `${newPerson.name} no longer exists`
+          })
+          setPersons(persons.filter(person => newPerson.id !== person.id))
+        } else {
+          setPersons(persons.map(person => person.id === updatedPerson.id ? updatedPerson : person))
+          fireNotification({
+            type: 'success',
+            message: `Updated ${newPerson.name}`
+          })
+          setNewName('')
+          setNewNumber('')
+        }
       })
-      .catch(error => {console.log(error.response.data)
+      .catch(error => {
+        console.log(error)
         fireNotification({
           type: 'error',
           message: error.response.data.error
