@@ -1,11 +1,10 @@
 import React from 'react'
 
 const PersonForm = ({
-    newName, newNumber, 
-    setNewName, setNewNumber,
-    persons, handleUpdatePerson, handleAddPerson
-  }) => {
-
+  newName, newNumber, 
+  setNewName, setNewNumber,
+  persons, handleUpdatePerson, handleAddPerson
+}) => {
   const handleNameChange = (event) => {
     setNewName(event.target.value)
   }

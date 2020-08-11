@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
-import Filter from './components/Filter';
-import PersonForm from './components/PersonForm';
-import Persons from './components/Persons';
-import Notification from './components/Notification';
-import contactService from './services/contacts';
+import Filter from './components/Filter'
+import PersonForm from './components/PersonForm'
+import Persons from './components/Persons'
+import Notification from './components/Notification'
+import contactService from './services/contacts'
 import './index.css'
 
 
@@ -33,40 +33,41 @@ const App = () => {
   }
 
   const handleUpdatePerson = newPerson => {
-      contactService.update(newPerson)
+    contactService.update(newPerson)
       .then(updatedPerson => {
         setPersons(persons.map(person => person.id === updatedPerson.id ? updatedPerson : person))
         fireNotification({
           type: 'success', 
           message: `Updated ${newPerson.name}`
         })
-      })
-      .catch(() => {
-        fireNotification({
-          type: 'error', 
-          message: `Information of ${newPerson.name} has already been removed from server`
-        })
-        setPersons(persons.filter(person => person.id !== newPerson.id))
-      })
-      .finally(() => {
         setNewName('')
         setNewNumber('')
       })
+      .catch(error => {console.log(error.response.data)
+        fireNotification({
+          type: 'error', 
+          message: error.response.data.error
+        })}
+      )
   }
 
   const handleAddPerson = newPerson => {
     contactService.add(newPerson)
-    .then(addedPerson => {
+      .then(addedPerson => {
         setPersons(persons.concat(addedPerson))
         fireNotification({
           type: 'success', 
           message: `Added ${addedPerson.name}`
         })
-    })
-    .catch(() => alert('Add failed'))
-    .finally(() => {
-      setNewNumber('')
-    })    
+        setNewName('')
+        setNewNumber('')
+      })
+      .catch(error => {console.log(error.response.data)
+        fireNotification({
+          type: 'error', 
+          message: error.response.data.error
+        })}
+      )
   }
 
   const fireNotification = (notification) => {
