@@ -8,14 +8,14 @@ describe('most blogs', () => {
   })
 
   test('single blog', () => {
-    const singleBlog = require('./blogs.data').singleBlog
+    const singleBlog = require('./test_helper').singleBlog
     const [author, count] = mostBlogs(singleBlog)
     expect(author).toBe('Edsger W. Dijkstra')
     expect(count).toBe(1)
   })
 
   test('multiple blogs', () => {
-    const multipleBlogs = require('./blogs.data').multipleBlogs
+    const multipleBlogs = require('./test_helper').multipleBlogs
     const [author, count] = mostBlogs(multipleBlogs)
     expect(author).toBe('Robert C. Martin')
     expect(count).toBe(3)

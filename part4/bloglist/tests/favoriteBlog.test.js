@@ -7,7 +7,7 @@ describe('favorite blog', () => {
   })
 
   test('single blog returns that blog', () => {
-    const singleBlog = require('./blogs.data').singleBlog
+    const singleBlog = require('./test_helper').singleBlog
     const result = favoriteBlog(singleBlog)
     expect(result).toEqual({
       _id: '5a422aa71b54a676234d17f8',
@@ -20,7 +20,7 @@ describe('favorite blog', () => {
   })
 
   test('multiple blogs works correctly', () => {
-    const multipleBlogs = require('./blogs.data').multipleBlogs
+    const multipleBlogs = require('./test_helper').multipleBlogs
     const result = favoriteBlog(multipleBlogs)
     expect(result).toEqual({
       _id: '5a422b3a1b54a676234d17f9',
