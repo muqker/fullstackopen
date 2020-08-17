@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest --verbose",
     "dev": "nodemon index.js",
     "lint": "eslint ."
   },
@@ -13,6 +13,7 @@
   "license": "MIT",
   "devDependencies": {
     "eslint": "^7.7.0",
+    "jest": "^26.4.0",
     "nodemon": "^2.0.4"
   },
   "dependencies": {
@@ -20,5 +21,8 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "mongoose": "^5.10.0"
-  }
+  },
+  "jest": {
+    "testEnvironment": "node"
+  }  
 }
