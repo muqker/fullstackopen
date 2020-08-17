@@ -1,0 +1,1 @@
+DELETE http://172.17.241.220:3003/api/blogs/5f3ade9ceaf9ae6d1a472266
