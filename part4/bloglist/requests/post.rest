@@ -1,0 +1,9 @@
+POST http://172.17.241.220:3003/api/blogs
+Content-Type: application/json
+
+{
+  "title": "Read all about it",
+  "author": "unsigned",
+  "url": "http://www.example.com",
+  "likes": 1
+}
