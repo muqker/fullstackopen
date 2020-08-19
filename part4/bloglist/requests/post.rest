@@ -1,4 +1,4 @@
-POST http://172.17.241.220:3003/api/blogs
+POST http://playground:3003/api/blogs
 Content-Type: application/json
 
 {
@@ -6,4 +6,13 @@ Content-Type: application/json
   "author": "unsigned",
   "url": "http://www.example.com",
   "likes": 1
+}
+###
+POST http://playground:3003/api/users
+Content-Type: application/json
+
+{
+  "username": "muqker",
+  "name": "Muqker Dude",
+  "password": "secret"
 }

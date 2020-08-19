@@ -10,7 +10,7 @@ describe('most blogs', () => {
   test('single blog', () => {
     const singleBlog = require('./test_helper').singleBlog
     const [author, count] = mostBlogs(singleBlog)
-    expect(author).toBe('Edsger W. Dijkstra')
+    expect(author).toBe(singleBlog[0].author)
     expect(count).toBe(1)
   })
 

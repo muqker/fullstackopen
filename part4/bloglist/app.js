@@ -6,7 +6,7 @@ const mongoose = require('mongoose')
 const app = express()
 
 logger.info(`Connecting to ${config.MONGO_URL}`)
-mongoose.connect(config.MONGO_URL, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(config.MONGO_URL, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
   .then(() => { logger.info('connected to MongoDB') })
   .catch((error) => { logger.error('error connecting to MongoDB:', error.message)})
 
@@ -20,6 +20,8 @@ app.get('/', (request, response) => {
 })
 
 app.use('/api/blogs', require('./controllers/blogs'))
+app.use('/api/users', require('./controllers/users'))
+
 app.use(require('./utils/middleware').unknownEndpoint)
 app.use(require('./utils/middleware').errorHandler)
 

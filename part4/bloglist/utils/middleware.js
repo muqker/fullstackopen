@@ -1,5 +1,4 @@
 const logger = require('./logger')
-const { info } = require('./logger')
 
 const requestLogger = (request, response, next) => {
   logger.info('Method:', request.method)
@@ -11,7 +10,7 @@ const requestLogger = (request, response, next) => {
 
 const unknownEndpoint = (request, response) => {
   //logger.error('unknown endpoint', request.path)
-  response.status(404).send( { error: 'unkown endpoint' })
+  response.status(404).send( { error: `unkown endpoint: ${request.path}` })
 }
 
 const errorHandler = (error, request, response, next) => {
@@ -21,6 +20,7 @@ const errorHandler = (error, request, response, next) => {
     return response.status(400).send({ error: 'malformatted id' })
   
   logger.error(error)
+  
   next(error)
 }
 

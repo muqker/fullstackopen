@@ -51,7 +51,30 @@ const singleBlog = [{
   __v: 0
 }]
 
+const multipleUsers = [{
+  username: 'root',
+  passwordHash: '---',
+  name: 'Sys Admin'
+}, {
+  username: 'wheel',
+  passwordHash: '---',
+  name: 'Trusted Staff'
+}, {
+  username: 'guest',
+  password: '123pass123',
+  name: 'Hacker Boy'
+}]
+
+const singleUser = [{
+  username: 'muqker',
+  password: 'sneaky',
+  name: 'Muqker Dude',
+  _id: '6a422ba71b54a676234d17fb'
+}]
+
 module.exports = {
   multipleBlogs,
-  singleBlog
+  singleBlog,
+  multipleUsers,
+  singleUser
 }

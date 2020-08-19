@@ -9,14 +9,7 @@ describe('favorite blog', () => {
   test('single blog returns that blog', () => {
     const singleBlog = require('./test_helper').singleBlog
     const result = favoriteBlog(singleBlog)
-    expect(result).toEqual({
-      _id: '5a422aa71b54a676234d17f8',
-      title: 'Go To Statement Considered Harmful',
-      author: 'Edsger W. Dijkstra',
-      url: 'http://www.u.arizona.edu/~rubinson/copyright_violations/Go_To_Considered_Harmful.html',
-      likes: 5,
-      __v: 0
-    })
+    expect(result).toEqual(singleBlog[0])
   })
 
   test('multiple blogs works correctly', () => {

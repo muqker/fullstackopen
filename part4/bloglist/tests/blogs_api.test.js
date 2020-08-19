@@ -1,8 +1,8 @@
 const supertest = require('supertest')
 const app = require('../app')
-const multipleBlogs = require('./test_helper').multipleBlogs
-const singleBlog = require('./test_helper').singleBlog
 const Blog = require('../models/blog')
+const { singleBlog, multipleBlogs, singleUser } = require('./test_helper')
+const User = require('../models/user')
 
 const api = supertest(app)
 
@@ -10,12 +10,19 @@ beforeEach(async () => {
   await Blog.deleteMany({})
 
   for (let blog of multipleBlogs) {
-    let blogObject = new Blog(blog)
-    await blogObject.save()
+    let obj = new Blog(blog)
+    await obj.save()
+  }
+
+  await User.deleteMany({})
+
+  for (let user of singleUser) {
+    let obj = new User(user)
+    await obj.save()
   }
 })
 
-describe('get all blogs', () => {
+describe('get blogs', () => {
   test('get blogs and check length', async () => {
     const response = await api.get('/api/blogs')
       .expect(200)
@@ -38,6 +45,19 @@ describe('get all blogs', () => {
     expect(blog.id).toBeDefined()
     expect(blog._id).not.toBeDefined()
   })
+
+  test('get single blog', async () => {
+    const newBlog = {
+      ...singleBlog[0]
+    }
+    delete newBlog._id
+
+    const postResponse = await api.post('/api/blogs').send(newBlog)
+    const newId = postResponse.body._id
+
+    const response = await api.get(`/api/blogs/${newId}`)
+    expect(response.body._id).toBe(newId)
+  })
 })
 
 describe('posting blogs', () => {
@@ -52,6 +72,7 @@ describe('posting blogs', () => {
       .expect('Content-type', /application\/json/)
     
     expect(postResponse.body.title).toBe(newBlog.title)
+    expect(postResponse.body.id).toBeDefined()
 
     const getResponse = await api.get('/api/blogs')
     expect(getResponse.body).toHaveLength(multipleBlogs.length + 1)
@@ -141,6 +162,45 @@ describe('update blogs', () => {
     const getResponse = await api.get('/api/blogs')
     const contents = getResponse.body.map(item => item.title)
     expect(contents).toContain(newBlog.title)
+  })
+})
+
+describe('blogs belong to users', () => {
+  test('blog object contains owner info', async () => {
+    const newBlog = {
+      ...singleBlog[0]
+    }
+    delete newBlog._id
+
+    const postResponse = await api.post('/api/blogs').send(newBlog)
+      .expect(201)
+    
+    const newId = postResponse.body.id
+
+    const response = await api.get(`/api/blogs/${newId}`)
+      .expect(200)
+    const blog = response.body
+
+    expect(blog.user).toBeDefined()
+    expect(blog.user.username).toBeDefined()
+    expect(blog.user.name).toBeDefined()
+    expect(blog.user.id).toBeDefined()
+    expect(blog.user.password).not.toBeDefined()
+    expect(blog.user.passwordHash).not.toBeDefined()
+
+    const userResponse = await api.get(`/api/users/${blog.user.id}`)
+      .expect(200)
+    const user = userResponse.body
+    expect(user.blogs).toBeDefined()
+    expect(user.blogs).toHaveLength(1)
+    expect(user.blogs).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          title: newBlog.title,
+          id: newId,
+        })
+      ])
+    )
   })
 })
 
