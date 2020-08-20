@@ -19,8 +19,11 @@ app.get('/', (request, response) => {
   response.json({ message: 'api ready' })
 })
 
+app.use(require('./utils/middleware').authorization)
+
 app.use('/api/blogs', require('./controllers/blogs'))
 app.use('/api/users', require('./controllers/users'))
+app.use('/api/login', require('./controllers/login'))
 
 app.use(require('./utils/middleware').unknownEndpoint)
 app.use(require('./utils/middleware').errorHandler)

@@ -15,13 +15,10 @@ describe('favorite blog', () => {
   test('multiple blogs works correctly', () => {
     const multipleBlogs = require('./test_helper').multipleBlogs
     const result = favoriteBlog(multipleBlogs)
-    expect(result).toEqual({
-      _id: '5a422b3a1b54a676234d17f9',
+    expect(result).toEqual(expect.objectContaining({
       title: 'Canonical string reduction',
       author: 'Edsger W. Dijkstra',
-      url: 'http://www.cs.utexas.edu/~EWD/transcriptions/EWD08xx/EWD808.html',
       likes: 12,
-      __v: 0
-    })
+    }))
   })
 })

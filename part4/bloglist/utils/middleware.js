@@ -1,10 +1,19 @@
 const logger = require('./logger')
+const { getDataFromToken } = require('./user_helper')
 
 const requestLogger = (request, response, next) => {
   logger.info('Method:', request.method)
   logger.info('Path:', request.path)
   logger.info('Body:', request.body)
   logger.info('---')
+  next()
+}
+
+const authorization = (request, response, next) => {
+  const authorization = request.get('authorization')
+  const token = (authorization && authorization.toLowerCase().startsWith('bearer ')) ? authorization.substring(7) : null
+  const decoded = getDataFromToken(token)
+  request.token = decoded
   next()
 }
 
@@ -27,5 +36,6 @@ const errorHandler = (error, request, response, next) => {
 module.exports = {
   requestLogger,
   unknownEndpoint,
-  errorHandler
+  errorHandler,
+  authorization
 }
