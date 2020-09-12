@@ -2,10 +2,10 @@ import React from 'react'
 
 const CreateBlog = ({ setTitle, setAuthor, setUrl, handleCreateBlog }) => {
   const handleSubmit = (event) => {
-    event.preventDefault();
+    event.preventDefault()
     handleCreateBlog()
   }
-  
+
   return (
     <div>
       <h2>create new</h2>

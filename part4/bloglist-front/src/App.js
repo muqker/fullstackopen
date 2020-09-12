@@ -23,7 +23,7 @@ const App = () => {
   const [url, setUrl] = useState('')
 
   const [authorization, setAuthorization] = useState(null)
-    
+
   useEffect(() => {
     const updateBlogs = async () => {
       const updatedBlogs = await blogsService.getAllBlogs()
@@ -50,7 +50,7 @@ const App = () => {
       type: authorization ? 'success' : 'error',
       message: authorization ? `${authorization.username} has logged in` : 'login failed'
     })
-    
+
     loginService.persistAuthorization(authorization)
     setAuthorization(authorization)
   }
@@ -67,27 +67,27 @@ const App = () => {
   const handleCreateBlog = async () => {
     const newBlog = await blogsService.create({ title, author, url }, authorization)
     setBlogs(blogs.concat(newBlog))
-    fireNotification({type: 'success', message: `a new blog ${newBlog.title} by ${newBlog.author} added`})
+    fireNotification({ type: 'success', message: `a new blog ${newBlog.title} by ${newBlog.author} added` })
   }
 
   const handleDeleteBlog = async (blogId) => {
     await blogsService.remove(blogId, authorization) // at least wait for a potential exception
     setBlogs(blogs.filter((blog) => blog.id !== blogId))
-    fireNotification({type: 'success', message: 'blog deleted'})
+    fireNotification({ type: 'success', message: 'blog deleted' })
   }
 
-  const loginFormPartial = () => 
+  const loginFormPartial = () =>
     <LoginForm setUsername={setUsername} setPassword={setPassword} handleLoginSubmit={handleLoginSubmit} />
-  
+
   const userPartial = () =>
     <User authorization={authorization} handleLogout={handleLogout} />
 
-  const blogsPartial = () => 
+  const blogsPartial = () =>
     <Blogs blogs={blogs} handleDeleteBlog={handleDeleteBlog} />
-  
-  const createBlogPartial = () => 
+
+  const createBlogPartial = () =>
     <CreateBlog setTitle={setTitle} setAuthor={setAuthor} setUrl={setUrl} handleCreateBlog={handleCreateBlog} />
-  
+
 
   return (
     <>
@@ -97,7 +97,7 @@ const App = () => {
       {authorization && createBlogPartial()}
       {authorization && blogsPartial()}
     </>
-  );
+  )
 }
 
-export default App;
+export default App

@@ -14,7 +14,7 @@ const Blogs = ({ blogs, handleDeleteBlog }) => {
             <button onClick={() => handleDeleteBlog(blog.id)}>delete</button>
           </li>
         )}
-      </ol>      
+      </ol>
     </div>
   )
 }
