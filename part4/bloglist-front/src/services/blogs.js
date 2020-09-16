@@ -6,15 +6,28 @@ const getAllBlogs = async () => {
 }
 
 const create = async (details, authorization) => {
-  const result = await axios.post(
-    'http://playground:3003/api/blogs',
-    details,
-    {
-      headers: { Authorization: `bearer ${authorization.token}` },
+  try {
+    const result = await axios.post(
+      'http://playground:3003/api/blogs',
+      details,
+      {
+        headers: { Authorization: `bearer ${authorization.token}` },
+      }
+    )
+    console.log(result)
+    return {
+      success: true,
+      data: result.data
     }
-  )
-  console.log(result)
-  return result.data
+  } catch (error) {
+    if (error.response.status === 400)
+      return {
+        success: false,
+        error: error.response.data.error
+      }
+    else
+      throw error
+  }
 }
 
 const remove = async (blogId, authorization) => {
