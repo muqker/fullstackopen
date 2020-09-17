@@ -16,14 +16,7 @@ import './index.css'
 const App = () => {
   const [notification, setNotification] = useState({})
   const [blogs, setBlogs] = useState([])
-
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
-
   const toggleCreateRef = useRef()
-
-
-
   const [authorization, setAuthorization] = useState(null)
 
   useEffect(() => {
@@ -44,10 +37,8 @@ const App = () => {
     setTimeout(() => { setNotification({})}, 3000)
   }
 
-  const handleLoginSubmit = async () => {
+  const handleLoginSubmit = async (username, password) => {
     const authorization = await loginService.requestAuthorization(username, password)
-    setUsername('')
-    setPassword('')
     fireNotification({
       type: authorization ? 'success' : 'error',
       message: authorization ? `${authorization.username} has logged in` : 'login failed'
@@ -89,7 +80,7 @@ const App = () => {
   }
 
   const handleLikeBlog = async (blog) => {
-    const result = await blogsService.like(blog, authorization)
+    const result = await blogsService.like(blog)
     const updatedBlog = result.data
     setBlogs(blogs.map((i) => i.id === blog.id ? updatedBlog : i))
   }
@@ -99,12 +90,12 @@ const App = () => {
       <h1>Welcome to our great BlogList cave</h1>
       <Notification notification={notification} />
       {! authorization &&
-        <LoginForm setUsername={setUsername} setPassword={setPassword} handleLoginSubmit={handleLoginSubmit} />
+        <LoginForm handleLoginSubmit={handleLoginSubmit} />
       }
       {authorization &&
         <User authorization={authorization} handleLogout={handleLogout} />
       }
-      
+
       {authorization &&
         <ToggleVisibility buttonLabel="new blog" ref={toggleCreateRef}>
           <CreateBlog handleCreateBlog={handleCreateBlog} />

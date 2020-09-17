@@ -41,7 +41,7 @@ const remove = async (blogId, authorization) => {
   )
 }
 
-const like = async (blog, authorization) => {
+const like = async (blog) => {
   const patch = {
     title: blog.title,
     author: blog.author,
@@ -57,7 +57,7 @@ const like = async (blog, authorization) => {
   return {
     success: true,
     data: result.data
-  }  
+  }
 }
 
 export default {

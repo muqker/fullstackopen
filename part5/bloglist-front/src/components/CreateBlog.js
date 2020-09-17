@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import PropTypes from 'prop-types'
 
 const CreateBlog = ({ handleCreateBlog }) => {
   const handleSubmit = async (event) => {
@@ -14,7 +15,7 @@ const CreateBlog = ({ handleCreateBlog }) => {
 
   const [title, setTitle] = useState('')
   const [author, setAuthor] = useState('')
-  const [url, setUrl] = useState('')  
+  const [url, setUrl] = useState('')
 
   return (
     <div>
@@ -27,6 +28,10 @@ const CreateBlog = ({ handleCreateBlog }) => {
       </form>
     </div>
   )
+}
+
+CreateBlog.propTypes = {
+  handleCreateBlog: PropTypes.func.isRequired
 }
 
 export default CreateBlog

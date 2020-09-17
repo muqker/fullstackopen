@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
+import PropTypes from 'prop-types'
 
 const BlogEntry = ({ blog, handleDeleteBlog, handleLikeBlog, username }) => {
   const [showDetails, setShowDetails] = useState(false)
 
-  const visibleDetails = { display: showDetails ? '' : 'none'}
+  const visibleDetails = { display: showDetails ? '' : 'none' }
   const hiddenDetails = { display: showDetails ? 'none' : '' }
 
   const toggleDetails = () => {
@@ -36,6 +37,13 @@ const BlogEntry = ({ blog, handleDeleteBlog, handleLikeBlog, username }) => {
       </div>
     </div>
   )
+}
+
+BlogEntry.propTypes = {
+  blog: PropTypes.object.isRequired,
+  handleDeleteBlog: PropTypes.func.isRequired,
+  handleLikeBlog: PropTypes.func.isRequired,
+  username: PropTypes.string.isRequired
 }
 
 export default BlogEntry
