@@ -88,33 +88,31 @@ const App = () => {
     fireNotification({ type: 'success', message: 'blog deleted' })
   }
 
-  const loginFormPartial = () =>
-    <LoginForm setUsername={setUsername} setPassword={setPassword} handleLoginSubmit={handleLoginSubmit} />
-
-  const userPartial = () =>
-    <User authorization={authorization} handleLogout={handleLogout} />
-
-  const blogsPartial = () => {
-    return (
-      <BlogList blogs={blogs} handleDeleteBlog={handleDeleteBlog} />
-    )
-  }
-
-  const createBlogPartial = () => {
-    return (
-      <ToggleVisibility buttonLabel="new blog" ref={toggleCreateRef}>
-        <CreateBlog handleCreateBlog={handleCreateBlog} />
-      </ToggleVisibility>
-    )
+  const handleLikeBlog = async (blog) => {
+    const result = await blogsService.like(blog, authorization)
+    const updatedBlog = result.data
+    setBlogs(blogs.map((i) => i.id === blog.id ? updatedBlog : i))
   }
 
   return (
     <>
       <h1>Welcome to our great BlogList cave</h1>
       <Notification notification={notification} />
-      {authorization ? userPartial() : loginFormPartial()}
-      {authorization && createBlogPartial()}
-      {authorization && blogsPartial()}
+      {! authorization &&
+        <LoginForm setUsername={setUsername} setPassword={setPassword} handleLoginSubmit={handleLoginSubmit} />
+      }
+      {authorization &&
+        <User authorization={authorization} handleLogout={handleLogout} />
+      }
+      
+      {authorization &&
+        <ToggleVisibility buttonLabel="new blog" ref={toggleCreateRef}>
+          <CreateBlog handleCreateBlog={handleCreateBlog} />
+        </ToggleVisibility>
+      }
+      {authorization &&
+        <BlogList blogs={blogs} handleDeleteBlog={handleDeleteBlog} handleLikeBlog={handleLikeBlog} username={authorization.username} />
+      }
     </>
   )
 }

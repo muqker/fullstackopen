@@ -28,6 +28,7 @@ const persistAuthorization = (authorization) => {
 
 const loadAuthorization = () => {
   const serialized = window.localStorage.getItem('loginAuthorization')
+  console.log(serialized)
   if (serialized) {
     return JSON.parse(serialized)
   } else {
