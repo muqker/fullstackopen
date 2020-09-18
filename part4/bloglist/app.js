@@ -21,6 +21,10 @@ app.get('/', (request, response) => {
 
 app.use(require('./utils/middleware').authorization)
 
+if (process.env.NODE_ENV === 'test') {
+  console.log('testing api loaded')
+  app.use('/api/testing', require('./controllers/testing'))
+}
 app.use('/api/blogs', require('./controllers/blogs'))
 app.use('/api/users', require('./controllers/users'))
 app.use('/api/login', require('./controllers/login'))
