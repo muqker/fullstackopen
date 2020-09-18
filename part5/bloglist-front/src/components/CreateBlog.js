@@ -21,9 +21,9 @@ const CreateBlog = ({ handleCreateBlog }) => {
     <div>
       <h2>create new</h2>
       <form onSubmit={handleSubmit}>
-        title: <input value={title} onChange={(event) => setTitle(event.target.value)} /><br />
-        author: <input value={author} onChange={(event) => setAuthor(event.target.value)}  /><br />
-        url: <input value={url} onChange={(event) => setUrl(event.target.value)}  /><br />
+        title: <input className="title" value={title} onChange={(event) => setTitle(event.target.value)} /><br />
+        author: <input className="author" value={author} onChange={(event) => setAuthor(event.target.value)}  /><br />
+        url: <input className="url" value={url} onChange={(event) => setUrl(event.target.value)}  /><br />
         <input type="submit" value="create" />
       </form>
     </div>

@@ -21,18 +21,19 @@ const BlogEntry = ({ blog, handleDeleteBlog, handleLikeBlog, username }) => {
     handleLikeBlog(blog)
   }
 
-  console.log(blog)
   return (
     <div className="blog">
-      {blog.title}<span> </span>
+      <span>{blog.title}</span>
+      <i> by <span>{blog.author}</span> </i>
       <button style={hiddenDetails} onClick={toggleDetails}>view</button>
       <button style={visibleDetails} onClick={toggleDetails}>hide</button>
       <div style={visibleDetails}>
-        likes: {blog.likes} <button onClick={onLike}>like</button> <br />
+        <span>likes:</span>
+        <span>{blog.likes}</span>
+        <button onClick={onLike}>like</button> <br />
         <a href={blog.url}>
           {blog.url}
         </a> <br />
-        <i> by {blog.author} </i> <br />
         {blog.user.username === username && <button onClick={onDelete}>remove</button>}
       </div>
     </div>
