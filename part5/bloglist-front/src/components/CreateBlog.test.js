@@ -20,9 +20,9 @@ describe('CreateBlog', () => {
       <CreateBlog handleCreateBlog={handleCreateBlog} />
     )
 
-    fireEvent.change(component.container.querySelector('input.title'), { target: { value: blog.title } })
-    fireEvent.change(component.container.querySelector('input.author'), { target: { value: blog.author } })
-    fireEvent.change(component.container.querySelector('input.url'), { target: { value: blog.url } })
+    fireEvent.change(component.container.querySelector('input#title'), { target: { value: blog.title } })
+    fireEvent.change(component.container.querySelector('input#author'), { target: { value: blog.author } })
+    fireEvent.change(component.container.querySelector('input#url'), { target: { value: blog.url } })
     fireEvent.submit(component.container.querySelector('form'))
 
     expect(handleCreateBlog.mock.calls).toHaveLength(1)

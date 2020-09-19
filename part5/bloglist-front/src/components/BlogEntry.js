@@ -25,16 +25,16 @@ const BlogEntry = ({ blog, handleDeleteBlog, handleLikeBlog, username }) => {
     <div className="blog">
       <span>{blog.title}</span>
       <i> by <span>{blog.author}</span> </i>
-      <button style={hiddenDetails} onClick={toggleDetails}>view</button>
+      <button id="view" style={hiddenDetails} onClick={toggleDetails}>view</button>
       <button style={visibleDetails} onClick={toggleDetails}>hide</button>
       <div style={visibleDetails}>
         <span>likes:</span>
-        <span>{blog.likes}</span>
-        <button onClick={onLike}>like</button> <br />
+        <span id="nblikes">{blog.likes}</span>
+        <button id="like" onClick={onLike}>like</button> <br />
         <a href={blog.url}>
           {blog.url}
         </a> <br />
-        {blog.user.username === username && <button onClick={onDelete}>remove</button>}
+        {blog.user.username === username && <button id="remove" onClick={onDelete}>remove</button>}
       </div>
     </div>
   )
