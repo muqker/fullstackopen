@@ -10,15 +10,22 @@ const reducer = (state = initialState, action) => {
   }
 }
 
+let lastTimeoutId = null
+
 export const setNotification = (notification, seconds) => {
   return dispatch => {
     dispatch({
       type: 'NOTIFY',
       data: { notification }
     })
-    setTimeout(() => dispatch({
+    if (lastTimeoutId) {
+      clearTimeout(lastTimeoutId)
+    }
+
+    const timeoutId = setTimeout(() => dispatch({
       type: 'DELETENOTIFICATION',
     }), seconds * 1000)
+    lastTimeoutId = timeoutId
   }
 }
 
