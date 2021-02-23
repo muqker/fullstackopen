@@ -117,7 +117,6 @@ const CreateNew = (props) => {
         </div>
         <button>create</button>
       </form>
-
       <button onClick={handleReset}>reset</button>
     </div>
   )
